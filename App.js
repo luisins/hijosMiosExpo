@@ -6,14 +6,15 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 import {initializeApp} from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
 
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Navigation from './Navigation';
 
-function LoginScreen(){
 
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const navigation = useNavigation();
+
+
+function LoginScreen({setLogeado}){
+
+  const [email, setEmail] = useState('luis.spessot@gmail.com');
+  const [pass, setPass] = useState('123456');
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app)
@@ -21,10 +22,11 @@ function LoginScreen(){
   const handlerCreateAccount = () => {
     createUserWithEmailAndPassword(auth, email, pass)
     .then((userCredential) => {
-      Alert.alert('Account created!')
-      console.log('Account created!')
+      Alert.alert('Cuenta creada!')
+      //console.log('Account created!')
       const user = userCredential.user;
       console.log(user)
+      console.log(user.providerData)
     })
     .catch(error => {
       console.log(JSON.stringify(error.code))
@@ -36,15 +38,16 @@ function LoginScreen(){
   const handlerSignIn = () => {
     signInWithEmailAndPassword(auth, email, pass)
     .then((userCredential) => {
-      //console.log('Signed in!');
-      Alert.alert('Signed in!');
       const user = userCredential.user;
-      //console.log(user)
-      navigation.navigate('Home')
+      setLogeado(true)
+      console.log('SI INGRESÓ')
     })
     .catch(error => {
-      console.log(error)
-      Alert.alert(error)
+      console.log(JSON.stringify(error.code))
+      console.log('ERRORRRR')
+      //Alert.alert(error)
+      JSON.stringify(error.code) == "auth/wrong-password" ? 
+      Alert.alert('Error', 'Contraseña incorrecta') : Alert.alert('Error',error.message)
     })
   }
 
@@ -53,10 +56,10 @@ function LoginScreen(){
     <View style={styles.container}>
       <Text>Ingrese sus credenciales</Text>
       <TouchableOpacity>
-        <TextInput style={{borderColor:'black', borderWidth:1, borderRadius:15, padding:10}} onChangeText={(text) => setEmail(text)} placeholder={'Email'}></TextInput>
+        <TextInput style={{borderColor:'black', borderWidth:1, borderRadius:15, padding:10}} value={email} keyboardType='email-address' onChangeText={(text) => setEmail(text)} placeholder={'Email'}></TextInput>
         </TouchableOpacity>
       <TouchableOpacity style={{borderColor:'black', borderWidth:1, borderRadius:15, padding:10}}>
-        <TextInput onChangeText={(text) => setPass(text)} placeholder={'Password'}></TextInput>
+        <TextInput value={pass} onChangeText={(text) => setPass(text)} placeholder={'Password'}></TextInput>
         </TouchableOpacity>
       <TouchableOpacity style={{borderColor:'black', borderWidth:1, borderRadius:5, padding:10}}
                         onPress={()=> handlerSignIn()}>
@@ -69,31 +72,20 @@ function LoginScreen(){
       <StatusBar style="auto" />
     </View>
   )
-}
-
-function HomeScreen(){
-  return (
-    <View style={styles.container}>
-      <Text>Holis ya estas logeado</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
+ } 
 
 export default function App() {
+  const [logeado, setLogeado] = useState(false);
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Home' component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    <>
+      {logeado ? 
+      <Navigation />
+      : <LoginScreen setLogeado={setLogeado} />}
+    </>
+  )
 }
 
-const styles = StyleSheet.create({
+ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
