@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "905036548152",
+    "project_id": "hijosmiosexpo",
+    "storage_bucket": "hijosmiosexpo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905036548152:android:458d8bf554eee596affecd",
+        "android_client_info": {
+          "package_name": "com.hijosmiosexpo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905036548152-72t1vhcdsojumdf5lthgrusi2fj0lo70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY03bzs-Oww9LbT9wHYvwwHY2LnU7rY9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905036548152-72t1vhcdsojumdf5lthgrusi2fj0lo70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

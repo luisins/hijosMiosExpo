@@ -57,6 +57,7 @@ function MyTabs() {
             <Tab.Screen name='HistoricoScreen' component={HistoricoScreen} 
             options={{
                 tabBarLabel: 'Familia',
+                
                  tabBarIcon: ({ color, size}) => (
                     <MaterialCommunityIcons name='account-group-outline' color={color} size={size} /* color="black" */ />
                     ) 
