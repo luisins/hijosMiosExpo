@@ -78,7 +78,7 @@ export default function App() {
   const [logeado, setLogeado] = useState(false);
   return (
     <>
-      {logeado ? 
+      {/* logeado */true ? 
       <Navigation />
       : <LoginScreen setLogeado={setLogeado} />}
     </>
